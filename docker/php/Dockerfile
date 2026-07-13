@@ -21,6 +21,11 @@ RUN docker-php-ext-install exif
 # Копирование исходного кода приложения
 COPY --chown=www-data:www-data ./backend /var/www/html
 
+COPY --from=node:20 /usr/local/bin /usr/local/bin
+COPY --from=node:20 /usr/local/lib/node_modules /usr/local/lib/node_modules
+
+# Verify installation
+RUN node -v && npm -v
 # Установка рабочей директории
 WORKDIR /var/www/html
 RUN chown -R www-data:www-data /var/www/html
@@ -44,6 +49,6 @@ RUN touch /var/log/cron.log
 RUN crontab /etc/cron.d/hello-cron
 COPY ./docker/php/configs/* /usr/local/etc/php/conf.d/
 
-
+EXPOSE 5173
 USER root
 
