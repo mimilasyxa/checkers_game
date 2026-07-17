@@ -1,10 +1,8 @@
 import Echo from 'laravel-echo';
-import getBrowserFingerprint from 'get-browser-fingerprint';
 import {makeApiCall} from './apiService.js'
 import Pusher from 'pusher-js';
 window.Pusher = Pusher;
 
-const AUTH_KEY = 'AUTH_KEY';
 window.Echo = new Echo({
     broadcaster: 'reverb',
     key: import.meta.env.VITE_REVERB_APP_KEY,
@@ -15,18 +13,8 @@ window.Echo = new Echo({
     enabledTransports: ['ws', 'wss'],
 });
 
-function setAuthToken(token) {
-    let oldToken = localStorage.getItem(AUTH_KEY);
-    if (oldToken == null) {
-        localStorage.setItem(AUTH_KEY, token)
-    }
-}
 
-setAuthToken(
-    await getBrowserFingerprint()
-)
-
-window.Echo.channel('Lobby')
-    .listen('.WebsiteEntered', () => {
-        makeApiCall('test', 'test', {test: 'test'}).then(r => console.log(r) )
-    });
+// window.Echo.channel('Common')
+//     .listen('.WebsiteEntered', () => {
+//         makeApiCall('test', 'test', {test: 'test'}).then(r => console.log(r) )
+//     });

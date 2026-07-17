@@ -5,7 +5,46 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>{{ config('app.name', 'Laravel') }}</title>
+        <div class="app-container">
+            <div class="container-header row-item">
 
+            </div>
+            <div class="container-main row-item">
+                <div class="game-menu">
+                    <button class="btn-menu create-btn btn">СОЗДАТЬ</button>
+                    <button class="btn-menu join-btn btn">ПРИСОЕДИНИТЬСЯ</button>
+                </div>
+            </div>
+            <div class="container-footer row-item">
+
+            </div>
+        </div>
+        <div id="modalOverlayCreation" class="overlay">
+            <div class="modal-box">
+                <h3>Создание лобби</h3>
+                <br>
+                <p>Передайте своему сопернику код и ожидайте его подключение!</p>
+                <p class="error"></p>
+                <p class="lobby-code"></p>
+                <div class="loader-container">
+                <div class="loader"></div>
+                </div>
+                <button class="close-create-popup-btn btn">Закрыть</button>
+            </div>
+        </div>
+        <div id="modalOverlayJoining" class="overlay">
+            <div class="modal-box">
+                <h3>Присоединение к лобби</h3>
+                <br>
+                <p>Введите код который вам передал вам соперник и подключитесь к игре!</p>
+                <input class="join-code-input" placeholder="Введите код">
+                <p></p>
+                <div class="button-container">
+                    <button class="close-join-popup-btn btn row-item" style="flex: 0 0 calc(50% - 10px);">Закрыть</button>
+                    <button class="enter-join-code-btn btn row-item" style="flex: 0 0 calc(50% - 10px);">Присоединиться</button>
+                </div>
+            </div>
+        </div>
         <!-- Styles / Scripts -->
         @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
             @vite(['resources/css/app.css', 'resources/js/app.js'])

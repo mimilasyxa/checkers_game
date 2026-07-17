@@ -7,3 +7,21 @@
  */
 
 import './echo';
+import './menu-buttons.js';
+import getBrowserFingerprint from "get-browser-fingerprint";
+
+const AUTH_KEY = 'AUTH_KEY';
+function setAuthToken(token) {
+    let oldToken = localStorage.getItem(AUTH_KEY);
+    if (oldToken == null) {
+        localStorage.setItem(AUTH_KEY, token)
+    }
+}
+
+export function getAuthToken() {
+    return localStorage.getItem(AUTH_KEY);
+}
+
+setAuthToken(
+    await getBrowserFingerprint()
+)

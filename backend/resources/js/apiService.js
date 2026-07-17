@@ -1,9 +1,18 @@
 import axios from 'axios';
+import {getAuthToken} from "./app.js";
 export async function makeApiCall(method, routeName, args) {
-    let query = '/api/broadcast/' + routeName;
+    let result, error;
+    let query = '/api/lobby/' + routeName;
 
-    return await axios.post(query, {args})
+    await axios.post(query, args,{headers: {
+        'Authorization' : getAuthToken()
+        }})
         .then((res) => {
-            return res
+            result = res
         })
+        .catch((res) => {
+            error = res.response.data.message
+        })
+
+    return {result: result, error: error}
 }
